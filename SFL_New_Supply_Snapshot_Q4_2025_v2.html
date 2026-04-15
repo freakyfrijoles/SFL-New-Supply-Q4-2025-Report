@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>South Florida Rental Apartment New Supply Snapshot | Q4 2025 | Aztec Group</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#07263D;--navy-mid:#0E3D5E;--navy-light:#1A5280;--gold:#B89A4E;--gold-light:#D4B96A;--white:#FFFFFF;--off-white:#F5F7FA;--light-gray:#E4EAF0;--text:#1C2B3A;--text-muted:#5A7087;--c22:#3B82F6;--c23:#10B981;--c24:#F59E0B;--c25:#EF4444;--c26:#8B5CF6;--c27:#EC4899;--c28:#6366F1;--miami:#1A6FA8;--broward:#2E9E8F;--palm:#C8784A;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--off-white);color:var(--text);font-size:14px;line-height:1.6;}
+nav{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:2px solid var(--gold);display:flex;align-items:center;padding:0 32px;gap:0;}
+.nav-logo{font-family:'Playfair Display',serif;color:var(--white);font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:14px 20px 14px 0;border-right:1px solid rgba(255,255,255,.2);margin-right:20px;white-space:nowrap;font-weight:700;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:0;overflow-x:auto;}
+.nav-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;padding:16px;white-space:nowrap;transition:color .2s;border-bottom:2px solid transparent;margin-bottom:-2px;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold-light);border-bottom-color:var(--gold);}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#0F4A70 100%);color:var(--white);padding:64px 64px 56px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;right:0;bottom:0;left:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+.hero-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1.1;margin-bottom:8px;max-width:680px;}
+.hero-subtitle{font-size:16px;color:rgba(255,255,255,.6);margin-bottom:40px;font-weight:300;letter-spacing:.04em;}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:860px;border:1px solid rgba(184,154,78,.3);border-radius:4px;overflow:hidden;}
+.hero-stat{background:rgba(255,255,255,.05);padding:20px 24px;border-right:1px solid rgba(184,154,78,.15);}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-value{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--white);line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:500;}
+.hero-meta{margin-top:28px;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.05em;}
+.section{padding:56px 64px;}
+.section:nth-child(even){background:var(--white);}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--light-gray);}
+.section-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--navy);}
+.section-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-weight:600;}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px;}
+.kpi-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px;}
+.kpi-card{background:var(--white);border:1px solid var(--light-gray);border-radius:6px;padding:20px 24px;position:relative;overflow:hidden;}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.kpi-card.miami::before{background:var(--miami);}
+.kpi-card.broward::before{background:var(--broward);}
+.kpi-card.palm::before{background:var(--palm);}
+.kpi-card.total::before{background:var(--gold);}
+.kpi-market{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-weight:600;margin-bottom:8px;}
+.kpi-value{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--navy);line-height:1;margin-bottom:4px;}
+.kpi-sub{font-size:12px;color:var(--text-muted);}
+.charts-2col{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;margin-bottom:40px;}
+.chart-card{background:var(--white);border:1px solid var(--light-gray);border-radius:6px;padding:24px;}
+.chart-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.chart-sub{font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.chart-wrap{position:relative;}
+.chart-wrap.tall{height:280px;}
+/* MAP */
+#map{height:560px;border-radius:6px;border:1px solid var(--light-gray);}
+.map-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;padding:16px;background:var(--white);border:1px solid var(--light-gray);border-radius:6px;}
+.map-legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text);}
+.map-legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.map-controls{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.map-btn{padding:7px 14px;border:1px solid var(--light-gray);border-radius:4px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;background:var(--white);color:var(--text);transition:all .15s;}
+.map-btn.active,.map-btn:hover{background:var(--navy);color:white;border-color:var(--navy);}
+/* TABLE */
+.table-controls{display:flex;gap:12px;margin-bottom:16px;align-items:center;flex-wrap:wrap;}
+.search-input{border:1px solid var(--light-gray);border-radius:4px;padding:8px 14px;font-size:13px;font-family:'DM Sans',sans-serif;flex:1;min-width:200px;background:var(--white);color:var(--text);outline:none;}
+.search-input:focus{border-color:var(--navy-light);}
+.filter-select{border:1px solid var(--light-gray);border-radius:4px;padding:8px 12px;font-size:12px;font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);cursor:pointer;outline:none;min-width:130px;}
+.table-count{font-size:12px;color:var(--text-muted);margin-left:auto;}
+.data-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.data-table thead tr{background:var(--navy);color:var(--white);}
+.data-table th{padding:10px 14px;text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:600;white-space:nowrap;}
+.data-table td{padding:9px 14px;border-bottom:1px solid #EEF1F5;vertical-align:middle;}
+.data-table tr:hover td{background:#F0F6FF;}
+.table-outer{border:1px solid var(--light-gray);border-radius:6px;overflow:hidden;max-height:520px;overflow-y:auto;}
+.occ-bar-wrap{display:flex;align-items:center;gap:8px;}
+.occ-bar{height:6px;border-radius:3px;background:var(--light-gray);flex:1;overflow:hidden;min-width:60px;}
+.occ-fill{height:100%;border-radius:3px;}
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600;letter-spacing:.04em;}
+.badge.miami{background:#E3F0F9;color:#1A6FA8;}
+.badge.broward{background:#E3F5F3;color:#2E9E8F;}
+.badge.palm{background:#FAF0E8;color:#C8784A;}
+.badge.delivered{background:#EBF5EB;color:#2D7D3A;}
+.badge.uc{background:#F3EDFB;color:#6B4FA0;}
+.badge.yr22{background:#EFF6FF;color:#1D4ED8;}
+.badge.yr23{background:#ECFDF5;color:#065F46;}
+.badge.yr24{background:#FFFBEB;color:#92400E;}
+.badge.yr25{background:#FEF2F2;color:#991B1B;}
+.badge.yr26{background:#F5F3FF;color:#5B21B6;}
+.badge.yr27{background:#FDF2F8;color:#9D174D;}
+.badge.yr28{background:#EEF2FF;color:#3730A3;}
+.insights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
+.insight-card{background:var(--navy);color:white;border-radius:6px;padding:20px 22px;}
+.insight-icon{font-size:22px;margin-bottom:10px;}
+.insight-title{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);font-weight:600;margin-bottom:6px;}
+.insight-text{font-size:13px;line-height:1.5;color:rgba(255,255,255,.8);}
+.submarket-table{width:100%;border-collapse:collapse;font-size:12px;}
+.submarket-table th{padding:8px 12px;background:var(--navy);color:white;font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;text-align:right;}
+.submarket-table th:first-child{text-align:left;}
+.submarket-table td{padding:8px 12px;border-bottom:1px solid #EEF1F5;text-align:right;}
+.submarket-table td:first-child{text-align:left;font-weight:500;}
+.submarket-table tr:hover td{background:#F8FBFF;}
+.submarket-table .total-row td{background:var(--navy);color:white;font-weight:700;}
+.num-cell{font-variant-numeric:tabular-nums;}
+.highlight-cell{color:var(--navy);font-weight:600;}
+footer{background:var(--navy);color:rgba(255,255,255,.5);padding:32px 64px;font-size:11px;line-height:1.7;border-top:2px solid var(--gold);}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
+.footer-brand{font-family:'Playfair Display',serif;color:white;font-size:18px;font-weight:700;}
+.footer-brand span{color:var(--gold);}
+@media(max-width:900px){.hero,.section,.footer{padding:40px 24px!important;}.hero-stats,.kpi-4{grid-template-columns:repeat(2,1fr)!important;}.kpi-grid,.charts-2col,.insights-grid{grid-template-columns:1fr!important;}nav{padding:0 16px;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">AZTEC <span>GROUP</span></div>
+  <div class="nav-links">
+    <a href="#overview" class="active">Overview</a>
+    <a href="#map-section">Map</a>
+    <a href="#miami-dade">Miami-Dade</a>
+    <a href="#broward">Broward</a>
+    <a href="#palm-beach">Palm Beach</a>
+    <a href="#inventory">Inventory</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Aztec Group · Capital Markets Intelligence</div>
+  <h1>South Florida Rental Apartment New Supply Snapshot</h1>
+  <div class="hero-subtitle">Q4 2025 · Market Rate Properties 50+ Units · Miami-Dade · Broward · Palm Beach</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-value">62,864</div><div class="hero-stat-label">Units Delivered 2022–2025</div></div>
+    <div class="hero-stat"><div class="hero-stat-value">32,204</div><div class="hero-stat-label">Units Under Construction 2026–2028</div></div>
+    <div class="hero-stat"><div class="hero-stat-value">48%</div><div class="hero-stat-label">Avg Occupancy · 2025 Deliveries</div></div>
+    <div class="hero-stat"><div class="hero-stat-value">359</div><div class="hero-stat-label">Properties Tracked</div></div>
+  </div>
+  <div class="hero-meta">Yardi Matrix · CoStar · Aztec Group field research. Market rate & 100%+ AMI workforce housing, 50+ units. Revised 3/1/26.</div>
+</section>
+
+<section class="section" id="overview">
+  <div class="section-header"><div class="section-title">Tri-County Supply Overview</div><div class="section-tag">Q4 2025</div></div>
+  <div class="kpi-4">
+    <div class="kpi-card total"><div class="kpi-market">South Florida Total</div><div class="kpi-value">252,972</div><div class="kpi-sub">Pre-2022 base inventory</div></div>
+    <div class="kpi-card miami"><div class="kpi-market">Miami-Dade</div><div class="kpi-value">33,831</div><div class="kpi-sub">Delivered 2022–2025</div></div>
+    <div class="kpi-card broward"><div class="kpi-market">Broward</div><div class="kpi-value">17,628</div><div class="kpi-sub">Delivered 2022–2025</div></div>
+    <div class="kpi-card palm"><div class="kpi-market">Palm Beach</div><div class="kpi-value">11,201</div><div class="kpi-sub">Delivered 2022–2025</div></div>
+  </div>
+  <div class="charts-2col">
+    <div class="chart-card"><div class="chart-title">Annual Deliveries + UC Pipeline by County</div><div class="chart-sub">Market rate rental apartments, 50+ units</div><div class="chart-wrap tall"><canvas id="overviewChart"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Occupancy by Vintage Year</div><div class="chart-sub">Tri-county average occupancy</div><div class="chart-wrap tall"><canvas id="occupancyChart"></canvas></div></div>
+  </div>
+  <div class="insights-grid">
+    <div class="insight-card"><div class="insight-icon">📉</div><div class="insight-title">Supply Cliff Ahead</div><div class="insight-text">Tri-county UC pipeline drops from 14,537 units in 2026 to 7,785 by 2028 — a 46% decline as financing constraints suppress new starts.</div></div>
+    <div class="insight-card"><div class="insight-icon">🏗️</div><div class="insight-title">2024 Was Peak Supply</div><div class="insight-text">21,294 units delivered in 2024 — the highest single-year volume in the cycle. Market-wide occupancy held at 89% despite the volume surge.</div></div>
+    <div class="insight-card"><div class="insight-icon">📊</div><div class="insight-title">2025 Occupancy Reset</div><div class="insight-text">2025 deliveries average only 48% occupancy tri-county — Miami-Dade at 42%, Broward at 47% — as late-cycle projects lease into a concession-heavy market.</div></div>
+  </div>
+</section>
+
+<!-- MAP SECTION -->
+<section class="section" id="map-section">
+  <div class="section-header"><div class="section-title">Property Delivery Map</div><div class="section-tag">359 Properties · 2022–2028</div></div>
+  <div class="map-controls" id="mapControls">
+    <button class="map-btn active" data-yr="all">All Years</button>
+    <button class="map-btn" data-yr="22" style="border-left:3px solid var(--c22)">2022</button>
+    <button class="map-btn" data-yr="23" style="border-left:3px solid var(--c23)">2023</button>
+    <button class="map-btn" data-yr="24" style="border-left:3px solid var(--c24)">2024</button>
+    <button class="map-btn" data-yr="25" style="border-left:3px solid var(--c25)">2025</button>
+    <button class="map-btn" data-yr="26" style="border-left:3px solid var(--c26)">2026 UC</button>
+    <button class="map-btn" data-yr="27" style="border-left:3px solid var(--c27)">2027 UC</button>
+    <button class="map-btn" data-yr="28" style="border-left:3px solid var(--c28)">2028 UC</button>
+  </div>
+  <div id="map"></div>
+  <div class="map-legend">
+    <strong style="font-size:12px;color:var(--navy);margin-right:8px;">Delivery Year:</strong>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--c22)"></div>2022 Delivered</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--c23)"></div>2023 Delivered</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--c24)"></div>2024 Delivered</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--c25)"></div>2025 Delivered</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--c26)"></div>2026 Under Construction</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--c27)"></div>2027 Under Construction</div>
+    <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--c28)"></div>2028 Under Construction</div>
+    <div style="margin-left:auto;font-size:11px;color:var(--text-muted)">Circle size = unit count · Click marker for details</div>
+  </div>
+</section>
+
+<section class="section" id="miami-dade">
+  <div class="section-header"><div class="section-title">Miami-Dade County</div><div class="section-tag">196 Properties · 101,107 Pre-2022 Units</div></div>
+  <div class="kpi-grid">
+    <div class="kpi-card miami"><div class="kpi-market">2022–2025 Deliveries</div><div class="kpi-value">33,831</div><div class="kpi-sub">+33% inventory growth in 4 years</div></div>
+    <div class="kpi-card miami"><div class="kpi-market">2026–2028 UC Pipeline</div><div class="kpi-value">18,211</div><div class="kpi-sub">7,765 · 5,240 · 5,206</div></div>
+    <div class="kpi-card miami"><div class="kpi-market">Monthly Absorption</div><div class="kpi-value">564</div><div class="kpi-sub">27,067 units absorbed 2022–2025</div></div>
+  </div>
+  <div class="charts-2col">
+    <div class="chart-card"><div class="chart-title">Miami-Dade Deliveries by Submarket</div><div class="chart-sub">2022–2028 UC</div><div class="chart-wrap tall"><canvas id="miamiSMChart"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Quarterly Delivery Cadence</div><div class="chart-sub">Rented vs. Vacant 2022–2025</div><div class="chart-wrap tall"><canvas id="miamiQChart"></canvas></div></div>
+  </div>
+  <div class="chart-card" style="margin-bottom:0">
+    <div class="chart-title">Miami-Dade Submarket Detail</div>
+    <table class="submarket-table" style="margin-top:12px">
+      <thead><tr><th>Submarket</th><th>Pre-2022</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026 UC</th><th>2027 UC</th><th>2028 UC</th></tr></thead>
+      <tbody>
+        <tr><td>Urban Core (DT/Brickell/Edgewater/Wynwood)</td><td class="num-cell">21,651</td><td class="num-cell">2,536</td><td class="num-cell">2,305</td><td class="num-cell highlight-cell">3,873</td><td class="num-cell">2,872</td><td class="num-cell">2,418</td><td class="num-cell">1,217</td><td class="num-cell highlight-cell">3,045</td></tr>
+        <tr><td>Airport NW (Hialeah / Doral / Miami Gardens)</td><td class="num-cell">35,905</td><td class="num-cell">1,487</td><td class="num-cell">2,680</td><td class="num-cell">2,470</td><td class="num-cell">1,461</td><td class="num-cell">1,994</td><td class="num-cell">1,677</td><td class="num-cell">924</td></tr>
+        <tr><td>Beach NE (North Miami / North Miami Beach)</td><td class="num-cell">16,449</td><td class="num-cell">1,266</td><td class="num-cell">640</td><td class="num-cell">1,525</td><td class="num-cell">1,768</td><td class="num-cell highlight-cell">1,812</td><td class="num-cell">1,064</td><td class="num-cell">805</td></tr>
+        <tr><td>South Dade (Homestead / Goulds)</td><td class="num-cell">5,057</td><td class="num-cell">—</td><td class="num-cell">908</td><td class="num-cell highlight-cell">1,846</td><td class="num-cell">218</td><td class="num-cell">970</td><td class="num-cell">877</td><td class="num-cell">—</td></tr>
+        <tr><td>Gables / SOMI (Coral Gables / Coconut Grove)</td><td class="num-cell">9,799</td><td class="num-cell">807</td><td class="num-cell">1,995</td><td class="num-cell">288</td><td class="num-cell">575</td><td class="num-cell">571</td><td class="num-cell">325</td><td class="num-cell">432</td></tr>
+        <tr><td>Kendall (Kendall / Kendall West)</td><td class="num-cell">12,246</td><td class="num-cell">368</td><td class="num-cell">252</td><td class="num-cell">1,026</td><td class="num-cell">665</td><td class="num-cell">—</td><td class="num-cell">80</td><td class="num-cell">—</td></tr>
+        <tr class="total-row"><td>TOTAL MIAMI-DADE</td><td class="num-cell">101,107</td><td class="num-cell">6,464</td><td class="num-cell">8,780</td><td class="num-cell">11,028</td><td class="num-cell">7,559</td><td class="num-cell">7,765</td><td class="num-cell">5,240</td><td class="num-cell">5,206</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="broward">
+  <div class="section-header"><div class="section-title">Broward County</div><div class="section-tag">96 Properties · 93,753 Pre-2022 Units</div></div>
+  <div class="kpi-grid">
+    <div class="kpi-card broward"><div class="kpi-market">2022–2025 Deliveries</div><div class="kpi-value">17,628</div><div class="kpi-sub">+18.8% inventory growth</div></div>
+    <div class="kpi-card broward"><div class="kpi-market">2026–2028 UC Pipeline</div><div class="kpi-value">8,687</div><div class="kpi-sub">4,327 · 2,798 · 1,562</div></div>
+    <div class="kpi-card broward"><div class="kpi-market">Monthly Absorption</div><div class="kpi-value">297</div><div class="kpi-sub">14,235 units absorbed 2022–2025</div></div>
+  </div>
+  <div class="charts-2col">
+    <div class="chart-card"><div class="chart-title">Broward Deliveries by Submarket</div><div class="chart-sub">2022–2028 UC</div><div class="chart-wrap tall"><canvas id="browardSMChart"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Quarterly Delivery Cadence</div><div class="chart-sub">Rented vs. Vacant 2022–2025</div><div class="chart-wrap tall"><canvas id="browardQChart"></canvas></div></div>
+  </div>
+  <div class="chart-card" style="margin-bottom:0">
+    <div class="chart-title">Broward Submarket Detail</div>
+    <table class="submarket-table" style="margin-top:12px">
+      <thead><tr><th>Submarket</th><th>Pre-2022</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026 UC</th><th>2027 UC</th><th>2028 UC</th></tr></thead>
+      <tbody>
+        <tr><td>Urban Core (Fort Lauderdale / Oakland Park / Dania Beach)</td><td class="num-cell">18,028</td><td class="num-cell">571</td><td class="num-cell">2,198</td><td class="num-cell highlight-cell">2,643</td><td class="num-cell">1,377</td><td class="num-cell highlight-cell">2,694</td><td class="num-cell">1,325</td><td class="num-cell">1,178</td></tr>
+        <tr><td>South (Hollywood / Pembroke Pines / Miramar)</td><td class="num-cell">17,850</td><td class="num-cell">1,173</td><td class="num-cell">316</td><td class="num-cell">869</td><td class="num-cell highlight-cell">1,813</td><td class="num-cell">414</td><td class="num-cell">200</td><td class="num-cell">—</td></tr>
+        <tr><td>West (Plantation / Sunrise / Davie)</td><td class="num-cell">21,286</td><td class="num-cell">1,119</td><td class="num-cell">1,319</td><td class="num-cell">1,138</td><td class="num-cell">235</td><td class="num-cell">576</td><td class="num-cell">635</td><td class="num-cell">384</td></tr>
+        <tr><td>NE (Pompano Beach / Deerfield Beach)</td><td class="num-cell">10,586</td><td class="num-cell">—</td><td class="num-cell">—</td><td class="num-cell">875</td><td class="num-cell">412</td><td class="num-cell">423</td><td class="num-cell">326</td><td class="num-cell">—</td></tr>
+        <tr><td>NW (Coral Springs / Parkland / Coconut Creek)</td><td class="num-cell">12,971</td><td class="num-cell">—</td><td class="num-cell">351</td><td class="num-cell">204</td><td class="num-cell">353</td><td class="num-cell">220</td><td class="num-cell">—</td><td class="num-cell">—</td></tr>
+        <tr><td>Central (Tamarac / Lauderhill / North Lauderdale)</td><td class="num-cell">13,032</td><td class="num-cell">—</td><td class="num-cell">332</td><td class="num-cell">—</td><td class="num-cell">330</td><td class="num-cell">—</td><td class="num-cell">312</td><td class="num-cell">—</td></tr>
+        <tr class="total-row"><td>TOTAL BROWARD</td><td class="num-cell">93,753</td><td class="num-cell">2,863</td><td class="num-cell">4,516</td><td class="num-cell">5,729</td><td class="num-cell">4,520</td><td class="num-cell">4,327</td><td class="num-cell">2,798</td><td class="num-cell">1,562</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="palm-beach">
+  <div class="section-header"><div class="section-title">Palm Beach County</div><div class="section-tag">67 Properties · 58,112 Pre-2022 Units</div></div>
+  <div class="kpi-grid">
+    <div class="kpi-card palm"><div class="kpi-market">2022–2025 Deliveries</div><div class="kpi-value">11,201</div><div class="kpi-sub">+19.3% inventory growth</div></div>
+    <div class="kpi-card palm"><div class="kpi-market">2026–2028 UC Pipeline</div><div class="kpi-value">5,306</div><div class="kpi-sub">2,445 · 1,844 · 1,017</div></div>
+    <div class="kpi-card palm"><div class="kpi-market">Monthly Absorption</div><div class="kpi-value">209</div><div class="kpi-sub">10,008 units absorbed 2022–2025</div></div>
+  </div>
+  <div class="charts-2col">
+    <div class="chart-card"><div class="chart-title">Palm Beach Deliveries by Submarket</div><div class="chart-sub">2022–2028 UC</div><div class="chart-wrap tall"><canvas id="palmSMChart"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Quarterly Delivery Cadence</div><div class="chart-sub">Rented vs. Vacant 2022–2025</div><div class="chart-wrap tall"><canvas id="palmQChart"></canvas></div></div>
+  </div>
+  <div class="chart-card" style="margin-bottom:0">
+    <div class="chart-title">Palm Beach Submarket Detail</div>
+    <table class="submarket-table" style="margin-top:12px">
+      <thead><tr><th>Submarket</th><th>Pre-2022</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026 UC</th><th>2027 UC</th><th>2028 UC</th></tr></thead>
+      <tbody>
+        <tr><td>Urban Core (West Palm Beach)</td><td class="num-cell">12,116</td><td class="num-cell">509</td><td class="num-cell highlight-cell">1,812</td><td class="num-cell">1,419</td><td class="num-cell">75</td><td class="num-cell highlight-cell">1,450</td><td class="num-cell">—</td><td class="num-cell">—</td></tr>
+        <tr><td>Boca / Delray (Boca Raton / Delray / Boynton)</td><td class="num-cell">28,008</td><td class="num-cell">838</td><td class="num-cell">1,074</td><td class="num-cell">1,145</td><td class="num-cell">—</td><td class="num-cell">674</td><td class="num-cell">801</td><td class="num-cell">1,017</td></tr>
+        <tr><td>Wellington / Lake Worth</td><td class="num-cell">10,058</td><td class="num-cell">848</td><td class="num-cell">536</td><td class="num-cell highlight-cell">1,617</td><td class="num-cell">785</td><td class="num-cell">321</td><td class="num-cell">39</td><td class="num-cell">—</td></tr>
+        <tr><td>North PB (Jupiter / PBG / Riviera Beach)</td><td class="num-cell">7,930</td><td class="num-cell">187</td><td class="num-cell">—</td><td class="num-cell">356</td><td class="num-cell">—</td><td class="num-cell">—</td><td class="num-cell">1,004</td><td class="num-cell">—</td></tr>
+        <tr class="total-row"><td>TOTAL PALM BEACH</td><td class="num-cell">58,112</td><td class="num-cell">2,382</td><td class="num-cell">3,422</td><td class="num-cell">4,537</td><td class="num-cell">860</td><td class="num-cell">2,445</td><td class="num-cell">1,844</td><td class="num-cell">1,017</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="inventory">
+  <div class="section-header"><div class="section-title">Property Inventory</div><div class="section-tag">All 359 Properties</div></div>
+  <div class="table-controls">
+    <input type="text" class="search-input" id="propSearch" placeholder="Search name, owner, or submarket…">
+    <select class="filter-select" id="ctyFilter"><option value="">All Counties</option><option value="miami">Miami-Dade</option><option value="broward">Broward</option><option value="palm">Palm Beach</option></select>
+    <select class="filter-select" id="yrFilter"><option value="">All Years</option><option value="22">2022</option><option value="23">2023</option><option value="24">2024</option><option value="25">2025</option><option value="26">2026 UC</option><option value="27">2027 UC</option><option value="28">2028 UC</option></select>
+    <select class="filter-select" id="stFilter"><option value="">All Status</option><option value="D">Delivered</option><option value="UC">Under Construction</option></select>
+    <div class="table-count" id="tCount"></div>
+  </div>
+  <div class="table-outer"><table class="data-table"><thead><tr><th>#</th><th>Property</th><th>Submarket</th><th>County</th><th>Owner</th><th>Units</th><th>Occupancy</th><th>Delivery</th><th>Status</th></tr></thead><tbody id="propTbody"></tbody></table></div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand">AZTEC <span>GROUP</span></div><div style="margin-top:6px;color:rgba(255,255,255,.4);font-size:11px">2665 S Bayshore Drive, PH-2A · Coconut Grove, FL 33133</div></div>
+    <div style="text-align:right"><div style="color:rgba(255,255,255,.7);font-size:12px;margin-bottom:4px">Peter Mekras · President · 305.938.8609</div><div style="color:rgba(255,255,255,.7);font-size:12px;margin-bottom:4px">Massey Blakeman · Associate · 305.938.8611</div><div style="color:rgba(255,255,255,.7);font-size:12px">aztecgroup.com</div></div>
+  </div>
+  <div>For informational purposes only. Data: Yardi Matrix, CoStar, Aztec Group research. Market rate & 100%+ AMI workforce properties, 50+ units. Revised 3/1/26. Confidential — authorized Aztec Group users only.</div>
+</footer>
+
+<script>
+// ─── SUBMARKET COORDS ───────────────────────────────────────────────────────
+const SM = {
+  "North Miami Beach":[25.927,-80.162],"North Miami":[25.889,-80.186],"Miami Gardens":[25.942,-80.245],
+  "Hialeah":[25.858,-80.284],"Doral":[25.819,-80.354],"Opa-locka":[25.902,-80.250],
+  "Fontainebleau":[25.767,-80.333],"Flagami":[25.766,-80.283],"Liberty City":[25.834,-80.222],
+  "Airport":[25.794,-80.287],"Allapattah":[25.804,-80.226],"Wynwood":[25.803,-80.200],
+  "Edgewater":[25.793,-80.191],"Downtown":[25.775,-80.190],"Brickell":[25.758,-80.196],
+  "Overtown":[25.782,-80.201],"Little Havana":[25.768,-80.220],"Coral Gables":[25.748,-80.258],
+  "Coconut Grove":[25.731,-80.238],"South Miami":[25.706,-80.291],"Kendall":[25.695,-80.357],
+  "Kendall West":[25.713,-80.406],"Three Lakes":[25.660,-80.355],"Upper East Side":[25.817,-80.185],
+  "Miami Beach":[25.790,-80.130],"Little Haiti":[25.826,-80.196],"Goulds":[25.558,-80.389],
+  "Homestead":[25.474,-80.474],"Florida City":[25.448,-80.478],"Coral Way":[25.755,-80.243],
+  "Miami Lakes":[25.916,-80.299],
+  "Fort Lauderdale Central":[26.122,-80.143],"Oakland Park":[26.172,-80.131],"Dania Beach":[26.054,-80.143],
+  "Plantation":[26.126,-80.233],"Davie":[26.064,-80.252],"Sunrise":[26.167,-80.256],
+  "Weston":[26.100,-80.400],"Pembroke Pines-Miramar":[25.988,-80.296],"Hollywood":[26.012,-80.149],
+  "Coral Springs North":[26.271,-80.270],"Coral Springs South":[26.240,-80.258],"Coconut Creek":[26.257,-80.179],
+  "Tamarac":[26.213,-80.249],"North Lauderdale":[26.218,-80.225],"Lauderdale Lakes":[26.170,-80.204],
+  "Lauderhill":[26.144,-80.213],"Pompano Beach North":[26.246,-80.126],"Pompano Beach Pier":[26.238,-80.109],
+  "Pompano Beach South":[26.220,-80.122],"Deerfield Beach":[26.319,-80.100],"Hallandale":[25.982,-80.149],
+  "Fort Lauderdale West":[26.105,-80.187],
+  "West Palm Beach Central":[26.712,-80.064],"West Palm Beach North":[26.743,-80.080],
+  "West Palm Beach West":[26.714,-80.094],"West Palm Beach South":[26.688,-80.064],
+  "Wellington":[26.659,-80.268],"Palm Springs":[26.636,-80.099],"Lake Worth":[26.617,-80.063],
+  "Lantana":[26.586,-80.053],"Boynton Beach":[26.535,-80.092],"Delray Beach":[26.461,-80.073],
+  "Boca Raton East":[26.357,-80.082],"Boca Raton West":[26.368,-80.130],"Palm Beach Gardens":[26.823,-80.135],
+  "Jupiter":[26.934,-80.094],"North Palm Beach":[26.817,-80.072],"Riviera Beach":[26.775,-80.059],
+  "Outlying Palm Beach County":[26.600,-80.400]
+};
+function jitter(i,scale=0.008){const s=Math.sin(i*127.1)*43758.5453;const t=Math.sin(i*269.5)+Math.sin(i*419.5);return[(s-Math.floor(s)-0.5)*scale,(t-Math.floor(t)-0.5)*scale];}
+function coords(sub,i){const c=SM[sub]||[25.775,-80.19];const[dy,dx]=jitter(i);return[c[0]+dy,c[1]+dx];}
+
+// ─── ALL 359 PROPERTIES ─────────────────────────────────────────────────────
+// Format: [name, submarket, county, owner, units, occ, yr, status]
+// occ = -1 for UC
+const RAW=[
+// MIAMI-DADE 2022 (26)
+["Las Marinas","North Miami Beach","miami","Brunetti Organization",256,97,"22","D"],
+["Biscayne 112","North Miami","miami","Arbor Realty Trust",351,95,"22","D"],
+["Villa Laguna","North Miami","miami","Turnberry Associates",190,95,"22","D"],
+["Villa Solé","North Miami","miami","Turnberry Associates",187,97,"22","D"],
+["Oak Enclave","Miami Gardens","miami","Harbor Group International",420,94,"22","D"],
+["Vista Lago","Miami Gardens","miami","Coastland Construction",288,96,"22","D"],
+["Amelia Lofts","Hialeah","miami","Prestige Companies",78,100,"22","D"],
+["Pura Vida","Hialeah","miami","Presidium Group & CSL",260,86,"22","D"],
+["The Upland","Hialeah","miami","IMC Equity Group",304,96,"22","D"],
+["Mirage at Sailboat Cove","Opa-locka","miami","BAS Holdings",137,94,"22","D"],
+["The Boulevard","Upper East Side","miami","Pantzer Properties",282,95,"22","D"],
+["Lantower River Landing","Allapattah","miami","Lantower Residential",528,98,"22","D"],
+["Modera Skylar Phase 2","Allapattah","miami","DRA Advisors",97,93,"22","D"],
+["Artem Wynwood","Wynwood","miami","Quarterra Multifamily",189,97,"22","D"],
+["The Dorsey","Wynwood","miami","Related Group",306,92,"22","D"],
+["Strata Wynwood","Wynwood","miami","Rockpoint Group",257,96,"22","D"],
+["Bezel Downtown","Downtown","miami","The Moinian Group",434,98,"22","D"],
+["Gallery on the River","Downtown","miami","Related Group",52,95,"22","D"],
+["Soleste Spring Gardens","Overtown","miami","The Estate Companies",179,93,"22","D"],
+["Altis Little Havana","Little Havana","miami","Altman Companies",224,94,"22","D"],
+["The Vibe Miami","Little Havana","miami","Lloyd Jones Capital",194,99,"22","D"],
+["Ram Miami River North","Little Havana","miami","Rental Asset Management",76,91,"22","D"],
+["Life Time Living at Gables Station","Coral Gables","miami","Hines Interests",495,91,"22","D"],
+["Core Link at Douglas","Coconut Grove","miami","13th Floor Investments",312,96,"22","D"],
+["Indigo Palmetto Bay","Kendall","miami","Atlantic Residential",235,94,"22","D"],
+["Hidden Lake","Three Lakes","miami","Coastland Construction",133,93,"22","D"],
+// MIAMI-DADE 2023 (34)
+["Countyline","North Miami Beach","miami","CADE Capital Partners",101,99,"23","D"],
+["Soleste NoMi Beach","North Miami Beach","miami","The Estate Companies",367,85,"23","D"],
+["Alture Westland","Hialeah","miami","The Estate Companies",251,95,"23","D"],
+["Manor Hialeah","Hialeah","miami","Related Group",642,90,"23","D"],
+["Natura Gardens","Hialeah","miami","Terra Group",460,97,"23","D"],
+["Residences of Highland","Hialeah","miami","Dacar Management",244,80,"23","D"],
+["Westview South","Opa-locka","miami","BAS Holdings & Winston Capital",75,96,"23","D"],
+["Bella Isla","Miami Beach","miami","Euroamerican Group",172,100,"23","D"],
+["Palma Downtown Doral Tower 2","Doral","miami","Codina Partners",228,98,"23","D"],
+["Legacy at 19th","Allapattah","miami","Legacy Residential Group",80,100,"23","D"],
+["Fifteen","Allapattah","miami","Premium Development",133,79,"23","D"],
+["29 WYN","Wynwood","miami","Berkshire Residential Investments",248,96,"23","D"],
+["WYND 27 & WYND 28","Wynwood","miami","Kushner Companies",152,95,"23","D"],
+["The Hamilton","Edgewater","miami","Kushner Companies",276,99,"23","D"],
+["Metro Edgewater","Edgewater","miami","Prodesa Development",276,98,"23","D"],
+["Urban 22","Edgewater","miami","Melo Development",424,85,"23","D"],
+["Downtown 1st","Downtown","miami","Melo Development",560,93,"23","D"],
+["Douglas Enclave","Little Havana","miami","Tandel Group",156,100,"23","D"],
+["The Reserve at the Plaza","Coral Gables","miami","Agave Holdings",174,98,"23","D"],
+["Cascade Link at Douglas","Coconut Grove","miami","Adler Group",421,94,"23","D"],
+["Grove Central Residences","Coconut Grove","miami","Grass River Property",341,96,"23","D"],
+["Platform 3750","Coconut Grove","miami","Cornerstone Group",113,89,"23","D"],
+["Advenir at Ludlam Trail","Flagami","miami","Advenir",314,97,"23","D"],
+["Casero","Fontainebleau","miami","Stockbridge Capital Group",320,98,"23","D"],
+["Li'l Abner II","Fontainebleau","miami","Consolidated Real Estate Investments",146,96,"23","D"],
+["Crest at Pinecrest","South Miami","miami","Alta Developers",296,78,"23","D"],
+["MiLine Ludlam Trail","South Miami","miami","ZOM",338,96,"23","D"],
+["Windsor Ludlam Trail","South Miami","miami","GID",312,97,"23","D"],
+["Vistas Palmetto Bay","Kendall","miami","Vistas Group",60,95,"23","D"],
+["Cortland South Kendall Phase 2","Three Lakes","miami","Cortland",192,95,"23","D"],
+["Solina Old Cutler","Goulds","miami","Kayne Anderson Real Estate",390,95,"23","D"],
+["The Avenue at Naranja","Homestead","miami","Fenix Contractors",231,91,"23","D"],
+["Resia Biscayne Drive","Homestead","miami","Resia",216,87,"23","D"],
+["Sunshine Villas","Homestead","miami","C.S. Brothers",71,99,"23","D"],
+// MIAMI-DADE 2024 (42)
+["Avida Aventura","North Miami Beach","miami","Fifield Companies",266,75,"24","D"],
+["Biscayne Shores","North Miami","miami","Integra Investments",380,93,"24","D"],
+["The Gardens Residences","North Miami","miami","Zaragon",320,65,"24","D"],
+["The Kavista","North Miami","miami","Barrington Heritage",282,100,"24","D"],
+["Caroline Golden Glades","North Miami","miami","Morgan Group",212,96,"24","D"],
+["Laguna Gardens","Miami Gardens","miami","Cymbal Development",341,89,"24","D"],
+["Emerald Bay","Hialeah","miami","Gonzalez & Sons Equipment",311,98,"24","D"],
+["Ram Station 21","Hialeah","miami","Rental Asset Management",90,100,"24","D"],
+["Solea at Miami Lakes","Hialeah","miami","LivCor",359,98,"24","D"],
+["South Pointe","Hialeah","miami","The Graham Companies",179,90,"24","D"],
+["Poe's Lofts","Hialeah","miami","Prestige Companies",102,100,"24","D"],
+["Mosaic","Opa-locka","miami","BAS Holdings",98,98,"24","D"],
+["Century Town Center","Doral","miami","Century Homebuilders Group",326,88,"24","D"],
+["The Dori","Doral","miami","Quarterra Multifamily",222,92,"24","D"],
+["Leksa at CityPlace Doral","Doral","miami","Willow Bridge",391,92,"24","D"],
+["Miami Springs Town Center","Airport","miami","MGG Developments",51,80,"24","D"],
+["The Julia","Allapattah","miami","Neology Development Group",323,92,"24","D"],
+["Legacy at 36th","Allapattah","miami","Legacy Residential Group",266,100,"24","D"],
+["AMLI Wynwood","Wynwood","miami","AMLI Residential",316,81,"24","D"],
+["The Highley House","Wynwood","miami","Related Group",304,79,"24","D"],
+["i5 Wynwood","Wynwood","miami","Related Group",63,94,"24","D"],
+["Society Wynwood","Wynwood","miami","PMG",318,77,"24","D"],
+["2000 Biscayne","Edgewater","miami","Kushner Companies",420,86,"24","D"],
+["Wynwood Haus","Edgewater","miami","TSG",124,92,"24","D"],
+["FORMA Miami","Edgewater","miami","Crescent Heights",588,99,"24","D"],
+["Miami World Tower 1","Downtown","miami","Lalezarian Properties",557,100,"24","D"],
+["UNI Tower","Downtown","miami","NR Investments & J. Milton",252,89,"24","D"],
+["Remi on the River","Little Havana","miami","Valeris",342,93,"24","D"],
+["Avalon Merrick Park","Coconut Grove","miami","AvalonBay Communities",254,98,"24","D"],
+["Residences at SoMi Parc","South Miami","miami","Related Group",34,98,"24","D"],
+["Alexan Kendall Phase I","Kendall West","miami","Trammell Crow Residential",576,55,"24","D"],
+["Altis Grand Kendall","Kendall West","miami","The Altman Companies",342,88,"24","D"],
+["Eureka Point Gardens","Kendall","miami","Adrian Builders",58,60,"24","D"],
+["Vista Verde at Deerwood Phase II","Three Lakes","miami","Rilea Group",50,95,"24","D"],
+["Bay Pointe","Goulds","miami","Garco",269,76,"24","D"],
+["Sol Vista","Goulds","miami","MRK Partners",204,100,"24","D"],
+["Modern Towers","Homestead","miami","The Faith Group",665,75,"24","D"],
+["Vista Sur","Homestead","miami","The Richman Group",197,93,"24","D"],
+["Casa Princeton","Homestead","miami","The DiFalco Group",212,96,"24","D"],
+["Princeton Landings","Homestead","miami","Related Group",199,99,"24","D"],
+["The Preserves at Florida City","Florida City","miami","AR Future Holdings",100,70,"24","D"],
+["The 7924","Little Haiti","miami","Morgan Reed Group",65,100,"24","D"],
+// MIAMI-DADE 2025 (30)
+["Modera Aventura","North Miami Beach","miami","Mill Creek Residential",315,19,"25","D"],
+["Arvella","North Miami Beach","miami","Arbor Realty Trust",290,85,"25","D"],
+["Aura North Miami Beach","North Miami Beach","miami","Trinsic Residential Group",373,20,"25","D"],
+["Biscayne Palms","North Miami","miami","Global One Investment Group",66,100,"25","D"],
+["Resia Golden Glades","North Miami","miami","Resia",336,35,"25","D"],
+["Residences at NOMI","North Miami","miami","The Horizon Group",148,37,"25","D"],
+["Solo Miami","North Miami","miami","PSN Consulting",62,55,"25","D"],
+["1025 Metro","Hialeah","miami","The BEC Group Services",151,0,"25","D"],
+["Ecco Lofts","Hialeah","miami","Prestige Companies",120,27,"25","D"],
+["Metro Parc","Hialeah","miami","MG Developer & Baron Property Group",559,25,"25","D"],
+["Northside Vistas","Liberty City","miami","IMC Equity Group",161,85,"25","D"],
+["AVARA Miami Beach","Miami Beach","miami","Rockpoint Group & Mast Capital",178,6,"25","D"],
+["Fourteen Main Street Residences","Allapattah","miami","Neology Development Group",93,85,"25","D"],
+["Grand View Park","Allapattah","miami","Garco",81,26,"25","D"],
+["Amara Wynwood","Wynwood","miami","Fifield Companies",210,51,"25","D"],
+["Joule House","Wynwood","miami","Fisher Brothers",308,22,"25","D"],
+["Wynwood Plaza Residences","Wynwood","miami","L&L Holding Company",509,35,"25","D"],
+["Sense 28","Edgewater","miami","HA Projects",53,53,"25","D"],
+["Flow Brickell","Downtown","miami","Flow",632,19,"25","D"],
+["Modera Riverside","Downtown","miami","Mill Creek Residential",428,31,"25","D"],
+["Magnus Brickell","Brickell","miami","Related Group",302,93,"25","D"],
+["Atlantic Square","Overtown","miami","Atlantic Pacific Companies",256,6,"25","D"],
+["Alexan Roxy","Coral Gables","miami","Trammell Crow Residential",285,2,"25","D"],
+["Centro City Residences","Flagami","miami","Terra Group",470,10,"25","D"],
+["Avalon South Miami","South Miami","miami","AvalonBay Communities",290,29,"25","D"],
+["The Trail Phase II","Kendall","miami","Prestige Companies & Florida Value Partners",230,98,"25","D"],
+["The Addison (BTR)","Kendall","miami","Coastland Construction",83,93,"25","D"],
+["Affina","Three Lakes","miami","Ram Realty Advisors",352,26,"25","D"],
+["Cauley Residences","Goulds","miami","Monceau Real Estate & Ora Developments",74,75,"25","D"],
+["Dixie Breeze","Homestead","miami","Adrian Builders",144,0,"25","D"],
+// MIAMI-DADE 2026 UC (26)
+["Blu Aventura","North Miami Beach","miami","Goldberg Companies & Lumer Real Estate",350,-1,"26","UC"],
+["Alvorada On The Bay","North Miami Beach","miami","Westdale & The Estate Companies",363,-1,"26","UC"],
+["Urbania Nomi 125st","North Miami","miami","Continua & SP Developments",195,-1,"26","UC"],
+["Manor Biscayne","North Miami","miami","Related Group",382,-1,"26","UC"],
+["Water Park Villas","North Miami","miami","Murat Capital Partners",100,-1,"26","UC"],
+["Delmas North","North Miami","miami","Abreu Development",80,-1,"26","UC"],
+["NoMi Square","North Miami","miami","Integra Investments",342,-1,"26","UC"],
+["Flamingo Village","Hialeah","miami","Prestige Companies",341,-1,"26","UC"],
+["Vistas De Amelia","Hialeah","miami","Prestige Companies",100,-1,"26","UC"],
+["Metro Station 1","Hialeah","miami","MG Developer",55,-1,"26","UC"],
+["1067 Motion Apartments","Hialeah","miami","The BEC Group Services",127,-1,"26","UC"],
+["Atala","Doral","miami","Coastland Construction",343,-1,"26","UC"],
+["Upland Park","Doral","miami","Terra Group",578,-1,"26","UC"],
+["2600 Biscayne","Edgewater","miami","Oak Row Equities & LNDMRK",399,-1,"26","UC"],
+["Excel Miami","Edgewater","miami","Clearline Real Estate",427,-1,"26","UC"],
+["Namdar Tower Phase 1","Downtown","miami","Namdar Group",680,-1,"26","UC"],
+["Downtown 6th","Downtown","miami","Melo Development",824,-1,"26","UC"],
+["Gallery Marti Park","Little Havana","miami","Related Group",88,-1,"26","UC"],
+["Regency Parc","Coral Gables","miami","Codina Partners",126,-1,"26","UC"],
+["Atlantic Voyager","Flagami","miami","Rilea Group & Caribe National Realty",150,-1,"26","UC"],
+["Tides at River Rapids","Flagami","miami","ROVR Development",300,-1,"26","UC"],
+["Alexan Ludlam Trace","South Miami","miami","Trammell Crow & The Carlyle Group",324,-1,"26","UC"],
+["HYVE 9400","South Miami","miami","Keystone Property Group",121,-1,"26","UC"],
+["Soleste Midtown","Homestead","miami","The Estate Companies",354,-1,"26","UC"],
+["Beacon Hill at Princeton","Homestead","miami","Beacon Hill Property Group",112,-1,"26","UC"],
+["Ambar Station","Homestead","miami","Vestcor Companies",504,-1,"26","UC"],
+// MIAMI-DADE 2027 UC (23)
+["Aventana","North Miami Beach","miami","Ram Realty Advisors & Pinnacle",300,-1,"27","UC"],
+["Alton Biscayne","North Miami","miami","Kolter Group & Carlyle Group",265,-1,"27","UC"],
+["Urbania NoMi 6th Avenue","North Miami","miami","Continua & SP Developments",240,-1,"27","UC"],
+["Metro Parc North","Hialeah","miami","MG Developer & Baron Property Group",661,-1,"27","UC"],
+["Metro Parc South","Hialeah","miami","MG Developer & Baron Property Group",347,-1,"27","UC"],
+["Vista View","Opa-locka","miami","Rafuls & Associates",60,-1,"27","UC"],
+["9300 Collins Avenue","Miami Beach","miami","Kushner Companies",68,-1,"27","UC"],
+["The Douglas","Upper East Side","miami","Cedar Street Companies",191,-1,"27","UC"],
+["Sevilla Doral","Doral","miami","Codina Partners",412,-1,"27","UC"],
+["Hamilton House","Edgewater","miami","Aimco",114,-1,"27","UC"],
+["2900 Terrace","Edgewater","miami","Oak Row Equities & LNDMRK",324,-1,"27","UC"],
+["JEM Residences","Downtown","miami","Naftali Group",530,-1,"27","UC"],
+["Havana Enclave","Little Havana","miami","Astor Development",179,-1,"27","UC"],
+["Essence Miami","Little Havana","miami","Nori Dorra",70,-1,"27","UC"],
+["Urban 301","Coral Gables","miami","Privee Capital",145,-1,"27","UC"],
+["Lil Abner III","Fontainebleau","miami","Consolidated Real Estate Investments",197,-1,"27","UC"],
+["Hyve Dadeland","South Miami","miami","Keystone Property Group",95,-1,"27","UC"],
+["The Shores at Palmetto Bay","Kendall","miami","Shores Dev",80,-1,"27","UC"],
+["Alta Princeton","Homestead","miami","Alta Developers",378,-1,"27","UC"],
+["Alma","Homestead","miami","Reboliz Construction",92,-1,"27","UC"],
+["Avenue at Naranja Phase 2","Homestead","miami","Fenix Contractors",239,-1,"27","UC"],
+["Dixie Breeze Phase 2","Homestead","miami","Adrian Builders",168,-1,"27","UC"],
+["Enso","Coral Way","miami","Empira Group",85,-1,"27","UC"],
+// MIAMI-DADE 2028 UC (15)
+["Palm Aire","North Miami Beach","miami","PPG Development",728,-1,"28","UC"],
+["8875 West 40th Avenue","Hialeah","miami","Gimrock Properties",239,-1,"28","UC"],
+["Nexus Leah","Hialeah","miami","Development Alliance",189,-1,"28","UC"],
+["Clara Bay Harbor","Miami Beach","miami","Clara Homes",77,-1,"28","UC"],
+["Hazel Doral","Doral","miami","Ascentris & Zom Living",380,-1,"28","UC"],
+["Dulce Vida","Allapattah","miami","Coral Rock Development Group",136,-1,"28","UC"],
+["Mohawk at Wynwood","Wynwood","miami","Rilea Group",300,-1,"28","UC"],
+["Wynwood Crossing","Wynwood","miami","Clearline Real Estate",310,-1,"28","UC"],
+["Edgewater 27","Edgewater","miami","Trilogy Real Estate Group",247,-1,"28","UC"],
+["Namdar Tower Phase 2","Downtown","miami","Namdar Group",714,-1,"28","UC"],
+["Sentral Brickell","Brickell","miami","PMG",537,-1,"28","UC"],
+["Brickell Starlight","Brickell","miami","Focus Development & Group Fox",491,-1,"28","UC"],
+["The Perrin","Brickell","miami","Empira Group",310,-1,"28","UC"],
+["Cadence Link at Douglas","Coconut Grove","miami","13th Floor Investments",432,-1,"28","UC"],
+["Tech Tower","Fontainebleau","miami","Global City Development & Gilu",116,-1,"28","UC"],
+// BROWARD 2022 (9)
+["The Registry Las Olas","Fort Lauderdale Central","broward","Willow Bridge",374,100,"22","D"],
+["Camden Atlantic","Plantation","broward","Camden Property Trust",269,99,"22","D"],
+["The Remy","Plantation","broward","Quarterra Multifamily",271,96,"22","D"],
+["The Rise Plantation Walk","Plantation","broward","Journey Capital",404,93,"22","D"],
+["The Residences at Monterra Commons","Davie","broward","White Oak Development",175,98,"22","D"],
+["The Stellar at Emerald Hills","Dania Beach","broward","JSB Capital Group",197,93,"22","D"],
+["Avalon Miramar Park Place","Pembroke Pines-Miramar","broward","AvalonBay Communities",650,97,"22","D"],
+["1818 Park","Hollywood","broward","FAVO Capital",273,95,"22","D"],
+["Slate Hallandale Beach","Hollywood","broward","PPG Development",250,78,"22","D"],
+// BROWARD 2023 (17)
+["Modera Coral Springs","Coral Springs North","broward","Mill Creek Residential",351,93,"23","D"],
+["Arcadia","Tamarac","broward","CaraCo Group",212,98,"23","D"],
+["Legacy at Tamarac","North Lauderdale","broward","Legacy Residential Group",120,95,"23","D"],
+["Vista Verde at Sunrise","Sunrise","broward","Rilea Group",288,99,"23","D"],
+["BLYS","Oakland Park","broward","Ram Realty Advisors",300,95,"23","D"],
+["Quantum","Fort Lauderdale Central","broward","Prime Group",337,94,"23","D"],
+["DavieOne","Fort Lauderdale West","broward","SB Construction",60,97,"23","D"],
+["ELYPS","Fort Lauderdale West","broward","Rental Asset Management",140,95,"23","D"],
+["The Ellsworth","Plantation","broward","Property Reserve",315,98,"23","D"],
+["Leena Plantation","Plantation","broward","Merrimac Ventures",306,96,"23","D"],
+["Shalimar at Plantation West","Plantation","broward","TM Real Estate Group",240,94,"23","D"],
+["The Reese","Davie","broward","ArchCo Residential",170,99,"23","D"],
+["Avery Dania Pointe East","Dania Beach","broward","Meyers Group",336,88,"23","D"],
+["Oasis Pointe Residences","Dania Beach","broward","Cymbal Development",301,95,"23","D"],
+["Sea View at Dania","Dania Beach","broward","J. Milton & Associates",384,93,"23","D"],
+["Soleste Seaside","Dania Beach","broward","The Estate Companies",340,90,"23","D"],
+["Epic Residences","Pembroke Pines-Miramar","broward","FCI Residential Corporation",316,96,"23","D"],
+// BROWARD 2024 (22)
+["Metropolitan at Coral Square","Coral Springs South","broward","Ascend Properties",204,95,"24","D"],
+["Old Town Square","Pompano Beach North","broward","Cavache Properties",281,77,"24","D"],
+["Sonata","Pompano Beach North","broward","Cornerstone Group",64,100,"24","D"],
+["Mayla Pompano","Pompano Beach Pier","broward","Grover Corlew",302,91,"24","D"],
+["Aviara East Pompano","Pompano Beach South","broward","MAG Real Estate & Development",228,80,"24","D"],
+["Westgate on University","Sunrise","broward","Westdale Asset Management",501,96,"24","D"],
+["ID Oakland Park","Oakland Park","broward","Ceiba Groupe",106,93,"24","D"],
+["Oaklyn","Oakland Park","broward","Brickbox Enterprises",275,96,"24","D"],
+["Treo","Oakland Park","broward","Fairfield Residential",280,93,"24","D"],
+["Coasterra","Fort Lauderdale Central","broward","Fairfield Residential",242,94,"24","D"],
+["Harbour at New River","Fort Lauderdale Central","broward","Related Group",337,93,"24","D"],
+["RIVR Lofts","Fort Lauderdale Central","broward","Moderno Development Group",352,85,"24","D"],
+["Veneto Las Olas","Fort Lauderdale Central","broward","Ponte Gadea",259,89,"24","D"],
+["Shalimar at Plantation East","Plantation","broward","TM Real Estate Group",240,78,"24","D"],
+["Modera Academical Village","Davie","broward","Mill Creek Residential",397,86,"24","D"],
+["Elevate","Dania Beach","broward","Royal Palm Companies",293,94,"24","D"],
+["Koosh Living at Griffin","Dania Beach","broward","BSD Capital",79,96,"24","D"],
+["Town Hollywood","Dania Beach","broward","Related Group",420,90,"24","D"],
+["The Point at Miramar","Pembroke Pines-Miramar","broward","Pantzer Properties",340,92,"24","D"],
+["Solena Miramar","Pembroke Pines-Miramar","broward","FCP",250,93,"24","D"],
+["Hallandale City Center","Hollywood","broward","B2J Development",75,96,"24","D"],
+["Nine Hollywood","Hollywood","broward","FundRebel",204,88,"24","D"],
+// BROWARD 2025 (18)
+["Modera Coral Springs Phase II","Coral Springs North","broward","Mill Creek Residential",353,96,"25","D"],
+["Gateway","Pompano Beach North","broward","US Gateway Investments",99,97,"25","D"],
+["Pearl at Pompano Beach (BTR)","Pompano Beach North","broward","Invest Capital Group",60,44,"25","D"],
+["The Atlantic","Pompano Beach Pier","broward","The Estate Companies",253,65,"25","D"],
+["Sereno","Sunrise","broward","Luxcom Builders",235,0,"25","D"],
+["The Sky Building","Oakland Park","broward","NR Investments",136,55,"25","D"],
+["PIXL at Plantation","Lauderhill","broward","Invesca Development Group",330,54,"25","D"],
+["The Adderley","Fort Lauderdale Central","broward","Altis Cardinal",375,79,"25","D"],
+["Gables Riverwalk","Fort Lauderdale Central","broward","Gables Residential",295,12,"25","D"],
+["The Gallery at FAT Village","Fort Lauderdale Central","broward","Related Group",113,85,"25","D"],
+["101 Dania Beach","Dania Beach","broward","The Apollo Companies & Liberty Base",278,60,"25","D"],
+["Griffin 441","Dania Beach","broward","Arbor Realty Trust",180,24,"25","D"],
+["Vibe Residences","Pembroke Pines-Miramar","broward","FCI Residential Corporation",332,50,"25","D"],
+["Bread Building","Hollywood","broward","BTI Partners",362,10,"25","D"],
+["The Holly by Soleste","Hollywood","broward","The Estate Companies",503,26,"25","D"],
+["Hollywood Heights on the Boulevard","Hollywood","broward","The Estate Companies",324,74,"25","D"],
+["Revv Hollywood","Hollywood","broward","The Calta Group",180,4,"25","D"],
+["The Tropic","Hollywood","broward","Affiliated Development",112,18,"25","D"],
+// BROWARD 2026 UC (15)
+["Legacy at Margate","Coconut Creek","broward","Legacy Residential Group",220,-1,"26","UC"],
+["Lumio Pompano Beach","Pompano Beach South","broward","Atlantic Residential",423,-1,"26","UC"],
+["Parklyn","Oakland Park","broward","Brickbox Enterprises",165,-1,"26","UC"],
+["Hanover Riverwalk","Fort Lauderdale Central","broward","The Hanover Company",380,-1,"26","UC"],
+["Society Las Olas Phase II","Fort Lauderdale Central","broward","PMG & Greybrook Realty Partners",563,-1,"26","UC"],
+["317 North Federal Highway","Fort Lauderdale Central","broward","Merrimac Ventures",390,-1,"26","UC"],
+["The Arcadian","Fort Lauderdale Central","broward","Fuse Group",454,-1,"26","UC"],
+["The Era","Fort Lauderdale West","broward","Affiliated Development",190,-1,"26","UC"],
+["Parks at Davie","Davie","broward","13th Floor Investments",326,-1,"26","UC"],
+["Pioneer Lofts","Davie","broward","Prestige Companies",21,-1,"26","UC"],
+["Saddlebridge Downtown Davie","Davie","broward","White Oak Development",229,-1,"26","UC"],
+["101 Dania Beach Phase 2","Dania Beach","broward","The Apollo Companies & Liberty Base",102,-1,"26","UC"],
+["Sea View II at Dania","Dania Beach","broward","J. Milton & Associates",450,-1,"26","UC"],
+["Parks at Hallandale","Hallandale","broward","13th Floor Investments",358,-1,"26","UC"],
+["The Wesley at Fillmore","Hollywood","broward","Blok Group",56,-1,"26","UC"],
+// BROWARD 2027 UC (12)
+["Vista Clara","Deerfield Beach","broward","Morgan Group",326,-1,"27","UC"],
+["Mayla Cypress Creek","Lauderdale Lakes","broward","Grover Corlew",312,-1,"27","UC"],
+["One River","Fort Lauderdale Central","broward","OKO Group & Cain International",251,-1,"27","UC"],
+["Advantis Station at Flagler Village","Fort Lauderdale Central","broward","Development Group & Forum RE",252,-1,"27","UC"],
+["FAT Village East","Fort Lauderdale Central","broward","Hines Interests & Urban Street",355,-1,"27","UC"],
+["FAT Village West","Fort Lauderdale Central","broward","Hines Interests & Urban Street",124,-1,"27","UC"],
+["Urbania Flagler 1st","Fort Lauderdale Central","broward","Continua & SP Developments",110,-1,"27","UC"],
+["The District in Davie","Davie","broward","El Ad National Properties",292,-1,"27","UC"],
+["Soleste Reserve I","Davie","broward","The Estate Companies",295,-1,"27","UC"],
+["Main Street Place","Davie","broward","Prestige Companies",48,-1,"27","UC"],
+["Koosh Living at Stirling","Dania Beach","broward","BSD Capital",233,-1,"27","UC"],
+["21 Hollywood","Hollywood","broward","Star Life Group",200,-1,"27","UC"],
+// BROWARD 2028 UC (3)
+["The Caroline at Sunrise","Sunrise","broward","Rockpoint Group & Morgan Group",384,-1,"28","UC"],
+["Cypress Phase 1","Oakland Park","broward","Lion Gables Realty & Clarion Partners",978,-1,"28","UC"],
+["Avery Cypress Creek","Oakland Park","broward","Meyers Group & Accesso Partners",200,-1,"28","UC"],
+// PALM BEACH 2022 (10)
+["The Point at North Palm Beach","North Palm Beach","palm","Fairway Investments",187,95,"22","D"],
+["Locklyn West Palm","West Palm Beach West","palm","Harbor Group International",280,98,"22","D"],
+["Mercer Park","West Palm Beach South","palm","Cochise Capital",51,80,"22","D"],
+["The Point at District Flats","West Palm Beach South","palm","Pantzer Properties",178,96,"22","D"],
+["Wellington Vista","Wellington","palm","FCI Residential Corporation",300,96,"22","D"],
+["The Bohemian","Lake Worth","palm","Affiliated Development",200,93,"22","D"],
+["Ivory Lantana","Lantana","palm","The Praedium Group",348,95,"22","D"],
+["LUMA at Delray","Delray Beach","palm","Ansca Homes",187,99,"22","D"],
+["Amalta Broken Sound","Boca Raton West","palm","Willow Bridge",297,96,"22","D"],
+["Boca Vue","Boca Raton West","palm","The Richman Group",354,98,"22","D"],
+// PALM BEACH 2023 (13)
+["Icon Marina Village","West Palm Beach North","palm","Related Group",399,96,"23","D"],
+["Riverstone Palm Beach","West Palm Beach North","palm","Cal-American",374,98,"23","D"],
+["The Grand","West Palm Beach Central","palm","Affiliated Development",309,94,"23","D"],
+["Griffis West Palm","West Palm Beach Central","palm","Griffis Residential",223,94,"23","D"],
+["Anya","West Palm Beach Central","palm","Woodfield Development",223,93,"23","D"],
+["Pine Ridge","West Palm Beach South","palm","Harbor Group International",284,96,"23","D"],
+["Aviara Green","Palm Springs","palm","Sympatico Real Estate",56,95,"23","D"],
+["Lakewood Village","Palm Springs","palm","Core Development",96,98,"23","D"],
+["Avion Riverwalk","Boynton Beach","palm","American Land Ventures",319,94,"23","D"],
+["Aura Delray Beach","Delray Beach","palm","Related Companies",219,96,"23","D"],
+["CERU","Boca Raton West","palm","Ares Management",284,95,"23","D"],
+["Nuvo Boca (BTR)","Boca Raton West","palm","North American Development Group",252,96,"23","D"],
+["Lake View Villas","Outlying Palm Beach County","palm","A1 Equities",384,98,"23","D"],
+// PALM BEACH 2024 (18)
+["The Marc","Palm Beach Gardens","palm","The Richman Group",356,94,"24","D"],
+["Inscription West Palm Beach","West Palm Beach North","palm","ECI Group",191,97,"24","D"],
+["Park West","West Palm Beach North","palm","Parkland Management",102,97,"24","D"],
+["The Laurel / 635 Hibiscus","West Palm Beach Central","palm","Related Companies",267,99,"24","D"],
+["Lumaire West Palm Beach","West Palm Beach Central","palm","Hyperion Group",457,97,"24","D"],
+["Tortoise One","West Palm Beach Central","palm","Tortoise Properties",264,91,"24","D"],
+["Brandon Estates","West Palm Beach South","palm","Florida Sunshine Investments",138,60,"24","D"],
+["Elan Polo Gardens","Wellington","palm","Property Reserve",284,98,"24","D"],
+["Cortland Royal Palm Beach","Wellington","palm","Declaration Partners & Lynd",401,69,"24","D"],
+["Boatman Hammock Townhomes (BTR)","Palm Springs","palm","Bain Capital",54,83,"24","D"],
+["Edera","Palm Springs","palm","Spear Group, Mast Capital & Rockpoint",264,86,"24","D"],
+["Altis Blue Lake","Lake Worth","palm","Altman Companies",318,94,"24","D"],
+["Elan Palm Reserve","Lantana","palm","Greystar",296,77,"24","D"],
+["BREZ at Atlantic Crossing","Delray Beach","palm","Edwards Companies",241,92,"24","D"],
+["Savio (Parks at Delray Phase I)","Delray Beach","palm","13th Floor & Key International",378,81,"24","D"],
+["Solera at Avalon Trails (BTR)","Delray Beach","palm","13th Floor Investments",74,91,"24","D"],
+["The Fitzgerald Camino Real","Boca Raton East","palm","FCI Residential Corporation",346,96,"24","D"],
+["Boca Villa Phases I & II","Boca Raton East","palm","MAP Communities",106,96,"24","D"],
+// PALM BEACH 2025 (5)
+["Vine on Clematis","West Palm Beach Central","palm","Navarro Lowrey",75,68,"25","D"],
+["Atlantico at Royal Palm Beach","Wellington","palm","FCI Residential Corporation",320,65,"25","D"],
+["Mosaic Palms","Wellington","palm","Akel Homes",140,9,"25","D"],
+["Avery at Lake Worth Beach","Lake Worth","palm","Meyers Group",200,78,"25","D"],
+["Deco Green","Lake Worth","palm","ONE Commercial RE & Avanti Way",125,57,"25","D"],
+// PALM BEACH 2026 UC (10)
+["The District at Northwood","West Palm Beach North","palm","Immocorp Capital",382,-1,"26","UC"],
+["The Spruce","West Palm Beach North","palm","Affiliated Development",153,-1,"26","UC"],
+["The Belvedere by Soleste","West Palm Beach Central","palm","The Estate Companies",321,-1,"26","UC"],
+["One West Palm","West Palm Beach Central","palm","Florida Sunshine Investments",326,-1,"26","UC"],
+["The Sound","West Palm Beach South","palm","Flagler Realty & Development",268,-1,"26","UC"],
+["Astor Sound","Lake Worth","palm","Prospect Property Group",230,-1,"26","UC"],
+["Lake Worth Station","Lake Worth","palm","ONE Commercial RE",91,-1,"26","UC"],
+["Boynton Tropical","Boynton Beach","palm","Kolter Communities",210,-1,"26","UC"],
+["Shalimar at Boynton Beach","Boynton Beach","palm","TM Real Estate Group",250,-1,"26","UC"],
+["Alexan Delray","Delray Beach","palm","Trammell Crow Residential",214,-1,"26","UC"],
+// PALM BEACH 2027 UC (8)
+["Soleste on the Trail","Palm Beach Gardens","palm","The Estate Companies",255,-1,"27","UC"],
+["Arbor House","Palm Beach Gardens","palm","Abacus Capital",271,-1,"27","UC"],
+["Gardens Vista","Palm Beach Gardens","palm","Vista Residential",199,-1,"27","UC"],
+["Avalon Northlake Promenade","Riviera Beach","palm","AvalonBay Communities",279,-1,"27","UC"],
+["Residences at Lake Worth","Lake Worth","palm","Richman Group",39,-1,"27","UC"],
+["The Villages at East Ocean","Boynton Beach","palm","Edgewater Capital Investments",336,-1,"27","UC"],
+["The Dune","Boynton Beach","palm","Affiliated Development",138,-1,"27","UC"],
+["Skye (Parks at Delray Phase II)","Delray Beach","palm","13th Floor & Key International",327,-1,"27","UC"],
+// PALM BEACH 2028 UC (3)
+["Ocean One","Boynton Beach","palm","Hyperion Group",371,-1,"28","UC"],
+["Modera Downtown Boca","Boca Raton East","palm","Mill Creek Residential & Group P6",306,-1,"28","UC"],
+["Link at Boca","Boca Raton East","palm","13th Floor Investments & Rockpoint",340,-1,"28","UC"]
+];
+
+// Build property objects with coords
+const PROPERTIES = RAW.map((r,i)=>({
+  name:r[0],sub:r[1],county:r[2],owner:r[3],units:r[4],occ:r[5],yr:r[6],status:r[7],
+  latlng:coords(r[1],i)
+}));
+
+// ─── CHART DATA ──────────────────────────────────────────────────────────────
+Chart.defaults.font.family="'DM Sans',sans-serif";Chart.defaults.font.size=11;
+const YRLABELS=['2022','2023','2024','2025','2026 UC','2027 UC','2028 UC'];
+const miami=[6464,8780,11028,7559,7765,5240,5206];
+const broward=[2863,4516,5729,4520,4327,2798,1562];
+const palm=[2382,3422,4537,860,2445,1844,1017];
+const occ={labels:['≤2021','2022','2023','2024','2025'],m:[95,95,94,89,42],b:[94,94,95,91,47],p:[94,95,96,89,55],t:[94,94,95,89,48]};
+const mQ={l:['22Q1','22Q2','22Q3','22Q4','23Q1','23Q2','23Q3','23Q4','24Q1','24Q2','24Q3','24Q4','25Q1','25Q2','25Q3','25Q4'],r:[1521,758,2106,1746,1334,2092,2298,2495,2268,1765,3158,2600,460,1647,380,436],v:[51,45,113,124,38,175,115,233,266,186,271,514,154,1963,937,1516]};
+const bQ={l:['22Q1','22Q2','22Q3','22Q4','23Q1','23Q2','23Q3','23Q4','24Q1','24Q2','24Q3','24Q4','25Q1','25Q2','25Q3','25Q4'],r:[1441,991,266,0,445,1351,588,1908,1449,1757,1062,918,692,96,377,894],v:[81,81,3,0,35,73,16,100,98,183,127,135,402,3,473,1583]};
+const pQ={l:['22Q1','22Q2','22Q3','22Q4','23Q1','23Q2','23Q3','23Q4','24Q1','24Q2','24Q3','24Q4','25Q1','25Q2','25Q3','25Q4'],r:[691,1004,0,561,1303,972,209,781,1295,1315,922,459,0,482,0,128],v:[28,79,0,19,53,55,14,35,52,229,213,52,0,238,0,12]};
+const SM_COLORS=['#1A6FA8','#2E9E8F','#C8784A','#6B4FA0','#C84A4A','#4A8F6B'];
+
+function stackedBar(id,labels,datasets){
+  const ctx=document.getElementById(id).getContext('2d');
+  return new Chart(ctx,{type:'bar',data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:8,font:{size:10}}},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.raw.toLocaleString()}`,footer:i=>` Total: ${i.reduce((s,x)=>s+x.raw,0).toLocaleString()}`}}},scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:10}}},y:{stacked:true,grid:{color:'#EEF1F5'},ticks:{callback:v=>v.toLocaleString()}}}}});
+}
+function qChart(id,qd,color){
+  const ctx=document.getElementById(id).getContext('2d');
+  return new Chart(ctx,{type:'bar',data:{labels:qd.l,datasets:[{label:'Rented',data:qd.r,backgroundColor:color+'CC',borderWidth:0},{label:'Vacant',data:qd.v,backgroundColor:color+'44',borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:8,font:{size:10}}}},scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:9},maxRotation:45}},y:{stacked:true,grid:{color:'#EEF1F5'},ticks:{callback:v=>v.toLocaleString()}}}}});
+}
+stackedBar('overviewChart',YRLABELS,[
+  {label:'Miami-Dade',data:miami,backgroundColor:'#1A6FA8CC',borderWidth:0},
+  {label:'Broward',data:broward,backgroundColor:'#2E9E8FCC',borderWidth:0},
+  {label:'Palm Beach',data:palm,backgroundColor:'#C8784ACC',borderWidth:0},
+]);
+(()=>{const ctx=document.getElementById('occupancyChart').getContext('2d');new Chart(ctx,{type:'line',data:{labels:occ.labels,datasets:[{label:'Miami-Dade',data:occ.m,borderColor:'#1A6FA8',tension:.3,pointRadius:4,fill:false},{label:'Broward',data:occ.b,borderColor:'#2E9E8F',tension:.3,pointRadius:4,fill:false},{label:'Palm Beach',data:occ.p,borderColor:'#C8784A',tension:.3,pointRadius:4,fill:false},{label:'Tri-County',data:occ.t,borderColor:'#B89A4E',borderDash:[5,4],tension:.3,pointRadius:3,borderWidth:2,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:8,font:{size:10}}}},scales:{y:{min:30,max:100,grid:{color:'#EEF1F5'},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});})();
+// Submarket charts
+const mSM={labels:['Urban Core','Airport NW','Beach NE','South Dade','Gables/SOMI','Kendall'],data:[[2536,2305,3873,2872,2418,1217,3045],[1487,2680,2470,1461,1994,1677,924],[1266,640,1525,1768,1812,1064,805],[0,908,1846,218,970,877,0],[807,1995,288,575,571,325,432],[368,252,1026,665,0,80,0]]};
+const bSM={labels:['Urban Core','South','West','NE','NW','Central'],data:[[571,2198,2643,1377,2694,1325,1178],[1173,316,869,1813,414,200,0],[1119,1319,1138,235,576,635,384],[0,0,875,412,423,326,0],[0,351,204,353,220,0,0],[0,332,0,330,0,312,0]]};
+const pSM={labels:['WPB Urban Core','Boca/Delray','Wellington/LW','North PB'],data:[[509,1812,1419,75,1450,0,0],[838,1074,1145,0,674,801,1017],[848,536,1617,785,321,39,0],[187,0,356,0,0,1004,0]]};
+[['miamiSMChart',mSM],['browardSMChart',bSM],['palmSMChart',pSM]].forEach(([id,sm])=>{
+  stackedBar(id,YRLABELS,sm.labels.map((l,i)=>({label:l,data:sm.data[i],backgroundColor:SM_COLORS[i%SM_COLORS.length]+'CC',borderWidth:0})));
+});
+qChart('miamiQChart',mQ,'#1A6FA8');
+qChart('browardQChart',bQ,'#2E9E8F');
+qChart('palmQChart',pQ,'#C8784A');
+
+// ─── LEAFLET MAP ──────────────────────────────────────────────────────────────
+const YR_COLORS={'22':'#3B82F6','23':'#10B981','24':'#F59E0B','25':'#EF4444','26':'#8B5CF6','27':'#EC4899','28':'#6366F1'};
+const YR_LABELS={'22':'2022','23':'2023','24':'2024','25':'2025','26':'2026 UC','27':'2027 UC','28':'2028 UC'};
+const CNAMES={'miami':'Miami-Dade','broward':'Broward','palm':'Palm Beach'};
+
+const map=L.map('map',{center:[26.1,-80.25],zoom:10});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap © CARTO',maxZoom:19}).addTo(map);
+
+const layers={};
+PROPERTIES.forEach((p,i)=>{
+  const color=YR_COLORS[p.yr]||'#888';
+  const radius=Math.max(5,Math.sqrt(p.units)*0.8);
+  const marker=L.circleMarker(p.latlng,{radius,fillColor:color,color:'#fff',weight:1,fillOpacity:0.82});
+  const occStr=p.occ>=0?`${p.occ}% occupied`:'Under Construction';
+  marker.bindPopup(`<div style="font-family:'DM Sans',sans-serif;min-width:180px"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${p.name}</div><div style="font-size:11px;color:#5A7087;margin-bottom:2px">${p.sub} · ${CNAMES[p.county]}</div><div style="font-size:11px;color:#5A7087;margin-bottom:6px">${p.owner}</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span style="background:${color}22;color:${color};padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">${YR_LABELS[p.yr]}</span><span style="background:#f0f4f8;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">${p.units.toLocaleString()} units</span><span style="background:#f0f4f8;padding:2px 8px;border-radius:3px;font-size:11px">${occStr}</span></div></div>`);
+  if(!layers[p.yr]) layers[p.yr]=[];
+  layers[p.yr].push(marker);
+  marker.addTo(map);
+});
+
+document.getElementById('mapControls').addEventListener('click',e=>{
+  const btn=e.target.closest('.map-btn');
+  if(!btn) return;
+  document.querySelectorAll('.map-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const yr=btn.dataset.yr;
+  Object.values(layers).flat().forEach(m=>map.removeLayer(m));
+  if(yr==='all'){Object.values(layers).flat().forEach(m=>m.addTo(map));}
+  else{(layers[yr]||[]).forEach(m=>m.addTo(map));}
+});
+
+// ─── PROPERTY TABLE ──────────────────────────────────────────────────────────
+const OC=o=>o>=85?'#2D7D3A':o>=60?'#E6A817':'#C04040';
+function renderTbl(data){
+  document.getElementById('tCount').textContent=`${data.length} properties`;
+  document.getElementById('propTbody').innerHTML=data.map((p,i)=>{
+    const isUC=p.status==='UC';
+    const occHtml=isUC?'<span style="color:#aaa;font-size:11px">Under Construction</span>':
+      `<div style="display:flex;align-items:center;gap:8px"><div style="height:6px;border-radius:3px;background:#E4EAF0;flex:1;min-width:50px;overflow:hidden"><div style="height:100%;border-radius:3px;width:${p.occ}%;background:${OC(p.occ)}"></div></div><span style="font-size:11px;color:${OC(p.occ)};font-weight:600">${p.occ}%</span></div>`;
+    const yrMap={'22':'yr22','23':'yr23','24':'yr24','25':'yr25','26':'yr26','27':'yr27','28':'yr28'};
+    return`<tr><td style="color:#aaa;font-size:11px">${i+1}</td><td style="font-weight:500">${p.name}</td><td style="color:#5A7087">${p.sub}</td><td><span class="badge ${p.county}">${CNAMES[p.county]}</span></td><td style="color:#5A7087;font-size:12px">${p.owner}</td><td style="font-weight:600;font-variant-numeric:tabular-nums">${p.units.toLocaleString()}</td><td>${occHtml}</td><td><span class="badge ${yrMap[p.yr]}">${YR_LABELS[p.yr]}</span></td><td><span class="badge ${isUC?'uc':'delivered'}">${isUC?'UC':'Delivered'}</span></td></tr>`;
+  }).join('');
+}
+function filterTbl(){
+  const q=document.getElementById('propSearch').value.toLowerCase();
+  const c=document.getElementById('ctyFilter').value;
+  const y=document.getElementById('yrFilter').value.replace(' UC','');
+  const s=document.getElementById('stFilter').value;
+  renderTbl(PROPERTIES.filter(p=>{
+    if(q&&!`${p.name} ${p.owner} ${p.sub}`.toLowerCase().includes(q))return false;
+    if(c&&p.county!==c)return false;
+    if(y&&p.yr!==y)return false;
+    if(s&&p.status!==s)return false;
+    return true;
+  }));
+}
+['propSearch','ctyFilter','yrFilter','stFilter'].forEach(id=>{
+  document.getElementById(id).addEventListener(id==='propSearch'?'input':'change',filterTbl);
+});
+renderTbl(PROPERTIES);
+
+// Nav scroll highlight
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY+80;
+  let active='overview';
+  ['overview','map-section','miami-dade','broward','palm-beach','inventory'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&el.offsetTop<=y)active=id;
+  });
+  navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+active));
+},{passive:true});
+</script>
+</body>
+</html>
